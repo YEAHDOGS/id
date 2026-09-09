@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOGS ID — Age Check</title>
+<style>
+  :root { --bg:#0a0a0b; --ink:#f5f5f4; --dim:#a1a1aa; --red:#ff2d2d; --gold:#ffbf00; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; }
+  body { background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+         display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card { max-width:440px; width:100%; text-align:center; border:1px solid #26262b; border-radius:16px;
+          padding:48px 36px; background:#101013; }
+  .mark { font-weight:800; letter-spacing:.35em; font-size:13px; color:var(--dim); margin-bottom:28px; }
+  .mark b { color:var(--red); }
+  h1 { font-size:30px; margin-bottom:12px; }
+  h1 .n { color:var(--gold); }
+  p.sub { color:var(--dim); margin-bottom:32px; line-height:1.5; }
+  .btn { display:block; width:100%; padding:16px; border-radius:10px; font-size:17px; font-weight:700;
+         cursor:pointer; border:0; margin-bottom:12px; }
+  .btn-yes { background:var(--gold); color:#111; }
+  .btn-yes:hover { filter:brightness(1.08); }
+  .btn-no { background:transparent; color:var(--dim); border:1px solid #3a3a41; font-weight:500; }
+  .btn-no:hover { color:var(--ink); border-color:#52525b; }
+  .fine { margin-top:24px; font-size:12px; color:#52525b; line-height:1.6; }
+  .denied h1 { color:var(--red); }
+  .ok h1 { color:var(--gold); }
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+  <div class="card" id="gate">
+    <div class="mark">D<b>O</b>GS&nbsp;&nbsp;ID</div>
+    <h1>Are you <span class="n" id="ageNum">21</span> or older?</h1>
+    <p class="sub" id="forLine">You must be of legal age to enter.</p>
+    <button class="btn btn-yes" id="yesBtn">I'm <span id="ageNum2">21</span> or older — Enter</button>
+    <button class="btn btn-no" id="noBtn">I'm under <span id="ageNum3">21</span></button>
+    <p class="fine">We don't ask for your birthday and we don't track you.<br>Your choice is saved on this device only.</p>
+  </div>
+
+  <div class="card denied hidden" id="denied">
+    <div class="mark">D<b>O</b>GS&nbsp;&nbsp;ID</div>
+    <h1>Not yet.</h1>
+    <p class="sub">This corner of the DOGS world is for adults only.<br>Come back and see us when you're older.</p>
+    <p class="fine">No hard feelings. The park is still there.</p>
+  </div>
+
+  <div class="card ok hidden" id="ok">
+    <div class="mark">D<b>O</b>GS&nbsp;&nbsp;ID</div>
+    <h1>You're in.</h1>
+    <p class="sub">Age verified. Welcome to the DOGS world.</p>
+  </div>
+
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var age = parseInt(q.get("age") || "21", 10) || 21;
+  var redirect = q.get("redirect") || "";
+  var forSite = q.get("for") || "";
+  var key = "dogs-id-verified-" + age;
+
+  ["ageNum","ageNum2","ageNum3"].forEach(function (id) {
+    document.getElementById(id).textContent = age;
+  });
+  if (forSite) document.getElementById("forLine").textContent =
+    "You must be " + age + " or older to enter " + forSite + ".";
+
+  function show(id) {
+    ["gate","denied","ok"].forEach(function (x) {
+      document.getElementById(x).classList.toggle("hidden", x !== id);
+    });
+  }
+
+  var verified = false;
+  try { verified = localStorage.getItem(key) === "1"; } catch (e) {}
+
+  function enter() {
+    try { localStorage.setItem(key, "1"); } catch (e) {}
+    if (redirect) {
+      var sep = redirect.indexOf("#") === -1 ? "#" : "&";
+      location.href = redirect + sep + "dogs-verified=" + age;
+    } else {
+      show("ok");
+    }
+  }
+
+  if (verified) { enter(); return; }
+
+  document.getElementById("yesBtn").addEventListener("click", enter);
+  document.getElementById("noBtn").addEventListener("click", function () { show("denied"); });
+})();
+</script>
+</body>
+</html>
