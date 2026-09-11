@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOGS ID — One age gate for the whole DOGS web</title>
+<meta name="description" content="DOGS ID is the age-verification gate for the DOGS web. One script tag per site. No birthdays, no tracking, remembered on your device only.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'none'">
+<meta property="og:title" content="DOGS ID — One age gate for the whole DOGS web">
+<meta property="og:description" content="No birthdays. No tracking. Asked once, remembered on your device.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yeahdogs.github.io/id/">
+<meta property="og:image" content="https://yeahdogs.github.io/id/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":"DOGS ID","url":"https://yeahdogs.github.io/id/","description":"Age-verification gate for the DOGS web. No birthdays, no tracking, remembered on the visitor's device only.","brand":{"@type":"Brand","name":"DOGS"}}
+</script>
+<style>
+:root{
+  --bg:#0b0b0c; --panel:#121214; --ink:#f4f1ea; --dim:#a8a29e; --faint:#6e6a65;
+  --gold:#ffbf00; --red:#ff2d2d; --hair:#232326; --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px}
+::selection{background:var(--gold);color:#111}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(11,11,12,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.mark{font-weight:800;letter-spacing:.28em;font-size:13px;color:var(--ink);text-decoration:none}
+.mark b{color:var(--red)}
+nav a.cta{font-size:13px;font-weight:700;color:#111;background:var(--gold);padding:9px 18px;border-radius:999px;text-decoration:none;transition:transform .18s ease}
+nav a.cta:active{transform:scale(.94)}
+
+/* hero */
+.hero{padding:76px 0 64px;position:relative}
+.eyebrow{font-size:12px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:22px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,11vw,92px);line-height:1.02;letter-spacing:-.01em;margin-bottom:22px}
+h1 em{font-style:italic;color:var(--gold)}
+.sub{color:var(--dim);font-size:clamp(16px,4.4vw,20px);max-width:34ch;margin-bottom:34px}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;font-weight:700;font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none;position:relative;overflow:hidden;transition:transform .18s ease}
+.btn:active{transform:scale(.95)}
+.btn-gold{background:var(--gold);color:#111}
+.btn-gold::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(-110%);transition:transform .6s ease}
+.btn-gold:hover::after{transform:translateX(110%)}
+.btn-ghost{border:1px solid #3a3a41;color:var(--ink)}
+.rope{margin-top:56px;height:2px;background:var(--hair);position:relative;overflow:hidden}
+.rope::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left}
+.rope.draw::after{animation:draw 1.4s cubic-bezier(.2,.7,.2,1) .2s forwards}
+@keyframes draw{to{transform:scaleX(1)}}
+
+/* sections */
+section{padding:64px 0;border-top:1px solid var(--hair)}
+.kicker{font-size:12px;letter-spacing:.3em;color:var(--faint);font-weight:700;margin-bottom:14px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,7.5vw,52px);line-height:1.08;margin-bottom:16px}
+.lede{color:var(--dim);max-width:44ch;margin-bottom:8px}
+
+/* demo gate */
+.gate{max-width:440px;margin:36px auto 0;background:var(--panel);border:1px solid var(--hair);border-radius:18px;padding:44px 32px;text-align:center}
+.gate .mark{margin-bottom:26px;display:block}
+.gate h3{font-family:var(--serif);font-weight:400;font-size:30px;margin-bottom:10px}
+.gate h3 .n{color:var(--gold)}
+.gate p{color:var(--dim);font-size:15px;margin-bottom:28px}
+.gate .btn{display:block;width:100%;margin-bottom:12px;border:0;cursor:pointer;font-family:var(--sans)}
+.gate .btn-yes{background:var(--gold);color:#111}
+.gate .btn-no{background:transparent;color:var(--dim);border:1px solid #3a3a41;font-weight:500}
+.gate .fine{margin-top:22px;font-size:12px;color:var(--faint);line-height:1.6}
+.gate .denied h3{color:var(--red)}
+.gate .ok h3{color:var(--gold)}
+.hidden{display:none!important}
+.reset{background:none;border:0;color:var(--faint);font-size:12px;cursor:pointer;margin-top:18px;text-decoration:underline;text-underline-offset:3px}
+.demo-note{text-align:center;color:var(--faint);font-size:13px;margin-top:20px}
+
+/* steps */
+.steps{margin-top:36px;display:grid;gap:0}
+.step{display:grid;grid-template-columns:52px 1fr;gap:16px;padding:26px 0;border-top:1px solid var(--hair)}
+.step:last-child{border-bottom:1px solid var(--hair)}
+.step .num{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:26px}
+.step h3{font-size:18px;margin-bottom:6px}
+.step p{color:var(--dim);font-size:15px;max-width:46ch}
+
+/* code */
+.codeblock{margin-top:32px;background:#08080a;border:1px solid var(--hair);border-radius:14px;padding:22px;position:relative;overflow-x:auto}
+.codeblock code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;color:var(--gold);white-space:pre;word-break:normal}
+.copy{position:absolute;top:14px;right:14px;background:var(--gold);color:#111;border:0;border-radius:999px;font-size:12px;font-weight:700;padding:8px 16px;cursor:pointer;transition:transform .18s ease}
+.copy:active{transform:scale(.93)}
+.params{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px}
+.params code{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--hair);border-radius:8px;padding:8px 12px}
+.params-note{color:var(--faint);font-size:13px;margin-top:14px;max-width:52ch}
+
+/* faq */
+details{border-top:1px solid var(--hair);padding:20px 0}
+details:last-of-type{border-bottom:1px solid var(--hair)}
+summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary .plus{color:var(--gold);font-size:22px;font-weight:400;flex-shrink:0;transition:transform .25s ease}
+details[open] summary .plus{transform:rotate(45deg)}
+details p{color:var(--dim);font-size:15px;margin-top:12px;max-width:56ch}
+
+/* footer */
+footer{border-top:1px solid var(--hair);padding:40px 0 110px}
+footer .wrap{display:flex;flex-direction:column;gap:14px}
+footer a{color:var(--dim);text-decoration:none;font-size:14px}
+footer a:hover{color:var(--ink)}
+.madeby{font-size:14px;color:var(--faint)}
+.madeby a{color:var(--gold);font-weight:700}
+.flink{display:flex;gap:22px}
+.nocookies{font-size:12px;color:var(--faint)}
+
+/* sticky mobile cta */
+.sticky-cta{display:none}
+@media(max-width:640px){
+  .sticky-cta{display:block;position:fixed;left:16px;right:16px;bottom:16px;z-index:30;background:var(--gold);color:#111;font-weight:800;text-align:center;text-decoration:none;padding:16px;border-radius:999px;font-size:16px;box-shadow:0 8px 30px rgba(0,0,0,.5);transition:transform .18s ease}
+  .sticky-cta:active{transform:scale(.96)}
+  .btnrow .btn{flex:1 1 100%;text-align:center}
+}
+
+/* reveals: transform/opacity only */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .rope.draw::after{animation:none;transform:scaleX(1)}
+  .btn-gold::after{display:none}
+}
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="mark" href="./">D<b>O</b>GS&nbsp;ID</a>
+    <a class="cta" href="#embed">Get the tag</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">DOGS ID 00b7 AGE CHECK</p>
+    <h1 class="reveal">One gate for<br>the <em>whole</em> DOGS web.</h1>
+    <p class="sub reveal">No birthdays. No tracking. Asked once, remembered on your device.</p>
+    <div class="btnrow reveal">
+      <a class="btn btn-gold" href="#demo">Try it</a>
+      <a class="btn btn-ghost" href="#embed">Get the tag</a>
+    </div>
+    <div class="rope" id="rope"></div>
+  </div>
+</header>
+
+<main>
+  <section id="demo">
+    <div class="wrap">
+      <p class="kicker reveal">LIVE DEMO</p>
+      <h2 class="reveal">This is the actual gate.</h2>
+      <p class="lede reveal">Press a button. It remembers your answer on this device, exactly like it does on every DOGS site.</p>
+
+      <div class="gate reveal" id="demoGate">
+        <span class="mark">D<b>O</b>GS&nbsp;ID</span>
+        <div id="g-main">
+          <h3>Are you <span class="n">21</span> or older?</h3>
+          <p>You must be of legal age to enter.</p>
+          <button class="btn btn-yes" id="g-yes">I2019m 21 or older 00b7 Enter</button>
+          <button class="btn btn-no" id="g-no">I&rsquo;m under 21</button>
+          <p class="fine">No birthday asked. No tracking.<br>Your choice stays on this device.</p>
+        </div>
+        <div id="g-ok" class="hidden ok">
+          <h3>You&rsquo;re in.</h3>
+          <p>Age verified. Welcome to the DOGS world.</p>
+        </div>
+        <div id="g-denied" class="hidden denied">
+          <h3>Not yet.</h3>
+          <p>This corner of the DOGS world is adults only.<br>No hard feelings.</p>
+        </div>
+        <button class="reset hidden" id="g-reset">Reset demo</button>
+      </div>
+      <p class="demo-note reveal">One script tag puts this gate on any site.</p>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <p class="kicker reveal">HOW IT WORKS</p>
+      <h2 class="reveal">Ask once.<br>Never again.</h2>
+      <div class="steps">
+        <div class="step reveal">
+          <span class="num">01</span>
+          <div><h3>Drop the tag</h3><p>One script tag on your site. Set the bar with <code>data-age</code>. First-time visitors meet the gate; everyone else walks through.</p></div>
+        </div>
+        <div class="step reveal">
+          <span class="num">02</span>
+          <div><h3>Remembered per device</h3><p>The visitor&rsquo;s choice is saved in their own browser, one key per age threshold. Clear site data and the gate asks again.</p></div>
+        </div>
+        <div class="step reveal">
+          <span class="num">03</span>
+          <div><h3>Nothing collected</h3><p>No birthdays, no accounts, no cookies, no analytics. The gate knows one thing: over, or under.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="embed">
+    <div class="wrap">
+      <p class="kicker reveal">EMBED</p>
+      <h2 class="reveal">One tag.<br>Done.</h2>
+      <p class="lede reveal">Paste this into any DOGS site. First visit gets the fullscreen gate, then it&rsquo;s remembered per device.</p>
+      <div class="codeblock reveal">
+        <button class="copy" id="copyBtn">Copy</button><code id="embedCode">&lt;script src="https://id.wearedogs.net/embed.js" data-age="21"&gt;&lt;/script&gt;</code>
+      </div>
+      <div class="params reveal">
+        <code>?age=21</code><code>&amp;redirect=</code><code>&amp;for=</code>
+      </div>
+      <p class="params-note reveal">Prefer a link? Send visitors to id.wearedogs.net with those params. After verifying they return tagged <code>#dogs-verified=21</code>.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="kicker reveal">QUESTIONS</p>
+      <h2 class="reveal">Short answers.</h2>
+      <div style="margin-top:28px">
+        <details class="reveal">
+          <summary>What data do you collect? <span class="plus">+</span></summary>
+          <p>None. No birthdays, no names, no accounts, no tracking cookies, no analytics. The gate stores a single yes/no flag in the visitor&rsquo;s own browser.</p>
+        </details>
+        <details class="reveal">
+          <summary>How is my choice remembered? <span class="plus">+</span></summary>
+          <p>On your device only, in localStorage, one key per age threshold. It never leaves your browser and no server ever sees it.</p>
+        </details>
+        <details class="reveal">
+          <summary>What age does it check? <span class="plus">+</span></summary>
+          <p>Whatever the site sets. The default is 21.</p>
+        </details>
+        <details class="reveal">
+          <summary>Where do I go after verifying? <span class="plus">+</span></summary>
+          <p>Wherever the site points you. Link mode appends <code>#dogs-verified=21</code> so the destination knows the check passed.</p>
+        </details>
+        <details class="reveal">
+          <summary>Which browsers work? <span class="plus">+</span></summary>
+          <p>Any modern browser with JavaScript and localStorage enabled.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="madeby">This product was made by <a href="https://wearedogs.net">DOGS</a></p>
+    <div class="flink">
+      <a href="privacy/">Privacy</a>
+      <a href="terms/">Terms</a>
+      <a href="https://id.wearedogs.net">The live gate</a>
+    </div>
+    <p class="nocookies">No cookies on this page. We mean it.</p>
+  </div>
+</footer>
+
+<a class="sticky-cta" href="#demo">Try the demo</a>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* entrance reveals */
+  var els = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) {
+    els.forEach(function(e){ e.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, {threshold: 0.12});
+    els.forEach(function(e){ io.observe(e); });
+  }
+
+  /* gold rope draw */
+  var rope = document.getElementById("rope");
+  if (reduce || !("IntersectionObserver" in window)) { rope.classList.add("draw"); }
+  else {
+    var rio = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ rope.classList.add("draw"); rio.disconnect(); } });
+    });
+    rio.observe(rope);
+  }
+
+  /* live gate demo */
+  var KEY = "dogs-id-demo-21";
+  var main = document.getElementById("g-main"),
+      ok = document.getElementById("g-ok"),
+      denied = document.getElementById("g-denied"),
+      reset = document.getElementById("g-reset");
+  function show(which){
+    main.classList.toggle("hidden", which !== "main");
+    ok.classList.toggle("hidden", which !== "ok");
+    denied.classList.toggle("hidden", which !== "denied");
+    reset.classList.toggle("hidden", which === "main");
+  }
+  function read(){ try { return localStorage.getItem(KEY) === "1"; } catch(e){ return false; } }
+  function write(v){ try { localStorage.setItem(KEY, v ? "1" : "0"); } catch(e){} }
+  if (read()) show("ok");
+  document.getElementById("g-yes").addEventListener("click", function(){ write(true); show("ok"); });
+  document.getElementById("g-no").addEventListener("click", function(){ write(false); show("denied"); });
+  reset.addEventListener("click", function(){ try { localStorage.removeItem(KEY); } catch(e){} show("main"); });
+
+  /* copy embed tag */
+  var btn = document.getElementById("copyBtn");
+  btn.addEventListener("click", function(){
+    var t = '<script src="https://id.wearedogs.net/embed.js" data-age="21"><\/script>';
+    function done(){ btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = "Copy"; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(done, function(){ fallback(); });
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = t; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch(e){}
+      document.body.removeChild(ta); done();
+    }
+  });
+})();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What data do you collect?","acceptedAnswer":{"@type":"Answer","text":"None. No birthdays, no names, no accounts, no tracking cookies, no analytics. The gate stores a single yes/no flag in the visitor's own browser."}},
+{"@type":"Question","name":"How is my choice remembered?","acceptedAnswer":{"@type":"Answer","text":"On your device only, in localStorage, one key per age threshold. It never leaves your browser and no server ever sees it."}},
+{"@type":"Question","name":"What age does it check?","acceptedAnswer":{"@type":"Answer","text":"Whatever the site sets. The default is 21."}},
+{"@type":"Question","name":"Where do I go after verifying?","acceptedAnswer":{"@type":"Answer","text":"Wherever the site points you. Link mode appends #dogs-verified=21 so the destination knows the check passed."}},
+{"@type":"Question","name":"Which browsers work?","acceptedAnswer":{"@type":"Answer","text":"Any modern browser with JavaScript and localStorage enabled."}}
+]}
+</script>
+</body>
+</html>
