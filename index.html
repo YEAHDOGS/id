@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DOGS ID — One age gate for the whole DOGS web</title>
+<title>DOGS ID — One gate for the whole DOGS web</title>
 <meta name="description" content="DOGS ID is the age-verification gate for the DOGS web. One script tag per site. No birthdays, no tracking, remembered on your device only.">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'none'">
-<meta property="og:title" content="DOGS ID — One age gate for the whole DOGS web">
+<meta property="og:title" content="DOGS ID — One gate for the whole DOGS web">
 <meta property="og:description" content="No birthdays. No tracking. Asked once, remembered on your device.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://yeahdogs.github.io/id/">
@@ -21,250 +21,288 @@
 {"@context":"https://schema.org","@type":"Product","name":"DOGS ID","url":"https://yeahdogs.github.io/id/","description":"Age-verification gate for the DOGS web. No birthdays, no tracking, remembered on the visitor's device only.","brand":{"@type":"Brand","name":"DOGS"}}
 </script>
 <style>
+/* DOGS ID — velvet-rope gold on black. One idea per screen. */
 :root{
-  --bg:#0b0b0c; --panel:#121214; --ink:#f4f1ea; --dim:#a8a29e; --faint:#6e6a65;
-  --gold:#ffbf00; --red:#ff2d2d; --hair:#232326; --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --bg:#0b0b0c; --ink:#f4f1ea; --dim:#a8a29e; --faint:#6e6a65;
+  --gold:#ffbf00; --red:#ff2d2d; --hair:#232326;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --serif:Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
-.wrap{max-width:960px;margin:0 auto;padding:0 22px}
 ::selection{background:var(--gold);color:#111}
 
-/* nav */
-nav{position:sticky;top:0;z-index:20;background:rgba(11,11,12,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
-.mark{font-weight:800;letter-spacing:.28em;font-size:13px;color:var(--ink);text-decoration:none}
-.mark b{color:var(--red)}
-nav a.cta{font-size:13px;font-weight:700;color:#111;background:var(--gold);padding:9px 18px;border-radius:999px;text-decoration:none;transition:transform .18s ease}
-nav a.cta:active{transform:scale(.94)}
+/* panels: one idea per screen */
+.panel{position:relative;height:100svh;scroll-snap-align:start;overflow:hidden;display:flex;flex-direction:column}
+.bg{position:absolute;inset:-14% 0;z-index:0;pointer-events:none}
+.bg img{width:100%;height:100%;object-fit:cover;display:block;will-change:transform}
+.bg.drift img{animation:drift linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+@keyframes drift{from{transform:translateY(-7%) scale(1.08)}to{transform:translateY(7%) scale(1.08)}}
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(11,11,12,.72) 0%,rgba(11,11,12,.35) 42%,rgba(11,11,12,.86) 100%)}
+.content{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;width:100%;max-width:1180px;margin:0 auto;padding:96px 24px 72px}
 
-/* hero */
-.hero{padding:76px 0 64px;position:relative}
-.eyebrow{font-size:12px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:22px}
-h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,11vw,92px);line-height:1.02;letter-spacing:-.01em;margin-bottom:22px}
-h1 em{font-style:italic;color:var(--gold)}
-.sub{color:var(--dim);font-size:clamp(16px,4.4vw,20px);max-width:34ch;margin-bottom:34px}
-.btnrow{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-block;font-weight:700;font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none;position:relative;overflow:hidden;transition:transform .18s ease}
+/* type system: giant display word + short punchy lines */
+.word{font-family:var(--serif);font-weight:400;font-size:clamp(64px,18vw,220px);line-height:.92;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+.word em{font-style:italic;color:var(--gold)}
+.line{font-size:clamp(17px,4.6vw,24px);font-weight:600;max-width:30ch;margin-top:14px}
+.line.thin{font-weight:400;color:var(--dim);font-size:clamp(15px,4.2vw,19px);max-width:38ch;margin-top:8px}
+.eyebrow{font-size:11px;letter-spacing:.34em;color:var(--gold);font-weight:700;margin-bottom:18px}
+
+/* staggered clip reveals (text only — never on elements wrapping <img>) */
+.rv{clip-path:inset(0 0 100% 0);opacity:0;transition:clip-path .85s cubic-bezier(.2,.7,.2,1),opacity .6s ease;transition-delay:calc(var(--i,0)*90ms)}
+.rv.in{clip-path:inset(0 0 0% 0);opacity:1}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;scroll-snap-type:none}
+  .bg.drift img{animation:none}
+  .rv{clip-path:none;opacity:1;transition:none}
+  .btn-gold::after{display:none}
+}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;padding:15px 32px;border-radius:999px;text-decoration:none;position:relative;overflow:hidden;transition:transform .18s ease;border:0;cursor:pointer;font-family:var(--sans)}
 .btn:active{transform:scale(.95)}
 .btn-gold{background:var(--gold);color:#111}
 .btn-gold::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(-110%);transition:transform .6s ease}
 .btn-gold:hover::after{transform:translateX(110%)}
 .btn-ghost{border:1px solid #3a3a41;color:var(--ink)}
-.rope{margin-top:56px;height:2px;background:var(--hair);position:relative;overflow:hidden}
-.rope::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left}
-.rope.draw::after{animation:draw 1.4s cubic-bezier(.2,.7,.2,1) .2s forwards}
-@keyframes draw{to{transform:scaleX(1)}}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 
-/* sections */
-section{padding:64px 0;border-top:1px solid var(--hair)}
-.kicker{font-size:12px;letter-spacing:.3em;color:var(--faint);font-weight:700;margin-bottom:14px}
-h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,7.5vw,52px);line-height:1.08;margin-bottom:16px}
-.lede{color:var(--dim);max-width:44ch;margin-bottom:8px}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(11,11,12,.78);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+nav .wrap{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px}
+.mark{font-weight:800;letter-spacing:.28em;font-size:13px;color:var(--ink);text-decoration:none}
+.mark b{color:var(--red)}
+nav a.cta{font-size:13px;font-weight:700;color:#111;background:var(--gold);padding:9px 18px;border-radius:999px;text-decoration:none}
+nav a.cta:active{transform:scale(.94)}
+
+/* placement variants */
+.p1 .content{justify-content:flex-end}
+.p2 .content{justify-content:center;align-items:flex-end;text-align:right}
+.p3 .content{justify-content:center}
+.p4 .content{justify-content:center;align-items:center;text-align:center}
+.p5 .content{justify-content:flex-end;align-items:flex-end;text-align:right}
+.p6 .content{justify-content:center}
+.p7 .content{justify-content:center;align-items:center;text-align:center}
+
+/* scroll cue, docked bottom-right */
+.cue{position:absolute;bottom:26px;right:26px;z-index:3;color:var(--faint);font-size:11px;letter-spacing:.3em;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:10px}
+.cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--gold),transparent);display:block;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.5}50%{transform:scaleY(1);opacity:1}}
 
 /* demo gate */
-.gate{max-width:440px;margin:36px auto 0;background:var(--panel);border:1px solid var(--hair);border-radius:18px;padding:44px 32px;text-align:center}
-.gate .mark{margin-bottom:26px;display:block}
-.gate h3{font-family:var(--serif);font-weight:400;font-size:30px;margin-bottom:10px}
+.gate{width:100%;max-width:380px;margin-top:24px;background:rgba(18,18,20,.92);border:1px solid var(--hair);border-radius:18px;padding:36px 28px;text-align:center;backdrop-filter:blur(6px)}
+.p2 .gate{margin-left:auto}
+.gate .mark{margin-bottom:20px;display:block}
+.gate h3{font-family:var(--serif);font-weight:400;font-size:28px;margin-bottom:8px}
 .gate h3 .n{color:var(--gold)}
-.gate p{color:var(--dim);font-size:15px;margin-bottom:28px}
-.gate .btn{display:block;width:100%;margin-bottom:12px;border:0;cursor:pointer;font-family:var(--sans)}
+.gate p{color:var(--dim);font-size:14px;margin-bottom:24px}
+.gate .btn{display:block;width:100%;margin-bottom:10px}
 .gate .btn-yes{background:var(--gold);color:#111}
 .gate .btn-no{background:transparent;color:var(--dim);border:1px solid #3a3a41;font-weight:500}
-.gate .fine{margin-top:22px;font-size:12px;color:var(--faint);line-height:1.6}
+.gate .fine{margin-top:18px;font-size:12px;color:var(--faint);line-height:1.6;margin-bottom:0}
 .gate .denied h3{color:var(--red)}
 .gate .ok h3{color:var(--gold)}
 .hidden{display:none!important}
-.reset{background:none;border:0;color:var(--faint);font-size:12px;cursor:pointer;margin-top:18px;text-decoration:underline;text-underline-offset:3px}
-.demo-note{text-align:center;color:var(--faint);font-size:13px;margin-top:20px}
+.reset{background:none;border:0;color:var(--faint);font-size:12px;cursor:pointer;margin-top:16px;text-decoration:underline;text-underline-offset:3px}
+.demo-note{color:var(--faint);font-size:13px;margin-top:16px}
 
 /* steps */
-.steps{margin-top:36px;display:grid;gap:0}
-.step{display:grid;grid-template-columns:52px 1fr;gap:16px;padding:26px 0;border-top:1px solid var(--hair)}
-.step:last-child{border-bottom:1px solid var(--hair)}
-.step .num{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:26px}
-.step h3{font-size:18px;margin-bottom:6px}
-.step p{color:var(--dim);font-size:15px;max-width:46ch}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;max-width:900px}
+.step{border-top:1px solid var(--gold);padding-top:14px}
+.step .num{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:22px;display:block;margin-bottom:6px}
+.step h3{font-size:16px;margin-bottom:4px}
+.step p{color:var(--dim);font-size:14px;max-width:30ch}
+@media(max-width:640px){.steps{grid-template-columns:1fr;gap:0}.step{padding:14px 0;border-top:1px solid var(--hair)}.step:last-child{border-bottom:1px solid var(--hair)}}
 
 /* code */
-.codeblock{margin-top:32px;background:#08080a;border:1px solid var(--hair);border-radius:14px;padding:22px;position:relative;overflow-x:auto}
-.codeblock code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;color:var(--gold);white-space:pre;word-break:normal}
-.copy{position:absolute;top:14px;right:14px;background:var(--gold);color:#111;border:0;border-radius:999px;font-size:12px;font-weight:700;padding:8px 16px;cursor:pointer;transition:transform .18s ease}
+.codeblock{margin-top:24px;background:rgba(8,8,10,.9);border:1px solid var(--hair);border-radius:14px;padding:50px 18px 18px;position:relative;overflow-x:auto;max-width:640px}
+.p5 .codeblock{margin-left:auto}
+.codeblock code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--gold);white-space:pre;word-break:normal;line-height:1.7}
+.copy{position:absolute;top:14px;right:14px;background:var(--gold);color:#111;border:0;border-radius:999px;font-size:12px;font-weight:700;padding:8px 16px;cursor:pointer;font-family:var(--sans)}
 .copy:active{transform:scale(.93)}
-.params{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px}
-.params code{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--hair);border-radius:8px;padding:8px 12px}
-.params-note{color:var(--faint);font-size:13px;margin-top:14px;max-width:52ch}
+.params{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px}
+.p5 .params{justify-content:flex-end}
+.params code{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--ink);background:rgba(18,18,20,.9);border:1px solid var(--hair);border-radius:8px;padding:8px 12px}
 
 /* faq */
-details{border-top:1px solid var(--hair);padding:20px 0}
+.faq{margin-top:26px;max-width:640px;width:100%}
+details{border-top:1px solid var(--hair);padding:16px 0}
 details:last-of-type{border-bottom:1px solid var(--hair)}
 summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
 summary::-webkit-details-marker{display:none}
 summary .plus{color:var(--gold);font-size:22px;font-weight:400;flex-shrink:0;transition:transform .25s ease}
 details[open] summary .plus{transform:rotate(45deg)}
-details p{color:var(--dim);font-size:15px;margin-top:12px;max-width:56ch}
+details p{color:var(--dim);font-size:15px;margin-top:10px;max-width:56ch}
 
-/* footer */
-footer{border-top:1px solid var(--hair);padding:40px 0 110px}
-footer .wrap{display:flex;flex-direction:column;gap:14px}
-footer a{color:var(--dim);text-decoration:none;font-size:14px}
-footer a:hover{color:var(--ink)}
-.madeby{font-size:14px;color:var(--faint)}
-.madeby a{color:var(--gold);font-weight:700}
-.flink{display:flex;gap:22px}
-.nocookies{font-size:12px;color:var(--faint)}
+/* final */
+.badge{display:block;width:220px;margin:30px auto 0}
+.badge img{display:block;width:100%;height:auto}
+.flink{display:flex;gap:22px;margin-top:20px}
+.flink a{color:var(--dim);text-decoration:none;font-size:14px}
+.flink a:hover{color:var(--ink)}
+.nocookies{font-size:12px;color:var(--faint);margin-top:14px}
 
 /* sticky mobile cta */
 .sticky-cta{display:none}
 @media(max-width:640px){
-  .sticky-cta{display:block;position:fixed;left:16px;right:16px;bottom:16px;z-index:30;background:var(--gold);color:#111;font-weight:800;text-align:center;text-decoration:none;padding:16px;border-radius:999px;font-size:16px;box-shadow:0 8px 30px rgba(0,0,0,.5);transition:transform .18s ease}
+  .sticky-cta{display:block;position:fixed;left:16px;right:16px;bottom:16px;z-index:30;background:var(--gold);color:#111;font-weight:800;text-align:center;text-decoration:none;padding:16px;border-radius:999px;font-size:16px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
   .sticky-cta:active{transform:scale(.96)}
-  .btnrow .btn{flex:1 1 100%;text-align:center}
-}
-
-/* reveals: transform/opacity only */
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
-.reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .reveal{opacity:1;transform:none;transition:none}
-  .rope.draw::after{animation:none;transform:scaleX(1)}
-  .btn-gold::after{display:none}
+  .btnrow .btn{flex:1 1 100%}
+  .content{padding:76px 20px 90px}
 }
 </style>
-<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+<noscript><style>.rv{clip-path:none;opacity:1}</style></noscript>
 </head>
 <body>
 
 <nav>
   <div class="wrap">
     <a class="mark" href="./">D<b>O</b>GS&nbsp;ID</a>
-    <a class="cta" href="#embed">Get the tag</a>
+    <a class="cta" href="#tag">Get the tag</a>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="wrap">
-    <p class="eyebrow reveal">DOGS ID 00b7 AGE CHECK</p>
-    <h1 class="reveal">One gate for<br>the <em>whole</em> DOGS web.</h1>
-    <p class="sub reveal">No birthdays. No tracking. Asked once, remembered on your device.</p>
-    <div class="btnrow reveal">
-      <a class="btn btn-gold" href="#demo">Try it</a>
-      <a class="btn btn-ghost" href="#embed">Get the tag</a>
+<!-- 1 · hero -->
+<section class="panel p1" id="top">
+  <div class="bg drift"><img src="assets/id-hero.jpg" alt="Velvet rope barrier in a dark room lit by warm gold light"></div>
+  <div class="scrim"></div>
+  <div class="content">
+    <p class="eyebrow rv" style="--i:0">DOGS ID — AGE CHECK</p>
+    <h1 class="word rv" style="--i:1">One gate<br>for the <em>whole</em><br>DOGS web.</h1>
+    <p class="line rv" style="--i:2">No birthdays. No tracking. Asked once, remembered on your device.</p>
+    <div class="btnrow rv" style="--i:3">
+      <a class="btn btn-gold" href="#demo">Try the gate</a>
+      <a class="btn btn-ghost" href="#tag">Get the tag</a>
     </div>
-    <div class="rope" id="rope"></div>
   </div>
-</header>
+  <a class="cue" href="#demo">SCROLL</a>
+</section>
 
-<main>
-  <section id="demo">
-    <div class="wrap">
-      <p class="kicker reveal">LIVE DEMO</p>
-      <h2 class="reveal">This is the actual gate.</h2>
-      <p class="lede reveal">Press a button. It remembers your answer on this device, exactly like it does on every DOGS site.</p>
-
-      <div class="gate reveal" id="demoGate">
-        <span class="mark">D<b>O</b>GS&nbsp;ID</span>
-        <div id="g-main">
-          <h3>Are you <span class="n">21</span> or older?</h3>
-          <p>You must be of legal age to enter.</p>
-          <button class="btn btn-yes" id="g-yes">I2019m 21 or older 00b7 Enter</button>
-          <button class="btn btn-no" id="g-no">I&rsquo;m under 21</button>
-          <p class="fine">No birthday asked. No tracking.<br>Your choice stays on this device.</p>
-        </div>
-        <div id="g-ok" class="hidden ok">
-          <h3>You&rsquo;re in.</h3>
-          <p>Age verified. Welcome to the DOGS world.</p>
-        </div>
-        <div id="g-denied" class="hidden denied">
-          <h3>Not yet.</h3>
-          <p>This corner of the DOGS world is adults only.<br>No hard feelings.</p>
-        </div>
-        <button class="reset hidden" id="g-reset">Reset demo</button>
+<!-- 2 · live demo -->
+<section class="panel p2" id="demo">
+  <div class="bg drift"><img src="assets/id-gate.jpg" alt="Glowing gold gate latch on dark metal"></div>
+  <div class="scrim"></div>
+  <div class="content">
+    <h2 class="word rv" style="--i:0">The <em>gate</em></h2>
+    <p class="line thin rv" style="--i:1">This is the actual thing. Press a button — it remembers, just like on every DOGS site.</p>
+    <div class="gate rv" style="--i:2" id="demoGate">
+      <span class="mark">D<b>O</b>GS&nbsp;ID</span>
+      <div id="g-main">
+        <h3>Are you <span class="n">21</span> or older?</h3>
+        <p>You must be of legal age to enter.</p>
+        <button class="btn btn-yes" id="g-yes">I&rsquo;m 21 or older — Enter</button>
+        <button class="btn btn-no" id="g-no">I&rsquo;m under 21</button>
+        <p class="fine">No birthday asked. No tracking.<br>Your choice stays on this device.</p>
       </div>
-      <p class="demo-note reveal">One script tag puts this gate on any site.</p>
+      <div id="g-ok" class="hidden ok">
+        <h3>You&rsquo;re in.</h3>
+        <p>Age verified. Welcome to the DOGS world.</p>
+      </div>
+      <div id="g-denied" class="hidden denied">
+        <h3>Not yet.</h3>
+        <p>This corner of the DOGS world is adults only.<br>No hard feelings.</p>
+      </div>
+      <button class="reset hidden" id="g-reset">Reset demo</button>
     </div>
-  </section>
+  </div>
+  <a class="cue" href="#once">SCROLL</a>
+</section>
 
-  <section id="how">
-    <div class="wrap">
-      <p class="kicker reveal">HOW IT WORKS</p>
-      <h2 class="reveal">Ask once.<br>Never again.</h2>
-      <div class="steps">
-        <div class="step reveal">
-          <span class="num">01</span>
-          <div><h3>Drop the tag</h3><p>One script tag on your site. Set the bar with <code>data-age</code>. First-time visitors meet the gate; everyone else walks through.</p></div>
-        </div>
-        <div class="step reveal">
-          <span class="num">02</span>
-          <div><h3>Remembered per device</h3><p>The visitor&rsquo;s choice is saved in their own browser, one key per age threshold. Clear site data and the gate asks again.</p></div>
-        </div>
-        <div class="step reveal">
-          <span class="num">03</span>
-          <div><h3>Nothing collected</h3><p>No birthdays, no accounts, no cookies, no analytics. The gate knows one thing: over, or under.</p></div>
-        </div>
-      </div>
+<!-- 3 · how it works -->
+<section class="panel p3" id="once">
+  <div class="bg drift"><img src="assets/id-door.jpg" alt="Dark corridor with a door ajar spilling golden light"></div>
+  <div class="scrim"></div>
+  <div class="content">
+    <p class="eyebrow rv" style="--i:0">HOW IT WORKS</p>
+    <h2 class="word rv" style="--i:1">Asked <em>once.</em><br>Never again.</h2>
+    <div class="steps rv" style="--i:2">
+      <div class="step"><span class="num">01</span><h3>Drop the tag</h3><p>One script tag. Set the bar with data-age. First-timers meet the gate; everyone else walks through.</p></div>
+      <div class="step"><span class="num">02</span><h3>Remembered per device</h3><p>The choice lives in the visitor&rsquo;s own browser, one key per age. Clear site data and it asks again.</p></div>
+      <div class="step"><span class="num">03</span><h3>Nothing collected</h3><p>No birthdays, no accounts, no cookies, no analytics. The gate knows one thing: over, or under.</p></div>
     </div>
-  </section>
+  </div>
+  <a class="cue" href="#nothing">SCROLL</a>
+</section>
 
-  <section id="embed">
-    <div class="wrap">
-      <p class="kicker reveal">EMBED</p>
-      <h2 class="reveal">One tag.<br>Done.</h2>
-      <p class="lede reveal">Paste this into any DOGS site. First visit gets the fullscreen gate, then it&rsquo;s remembered per device.</p>
-      <div class="codeblock reveal">
-        <button class="copy" id="copyBtn">Copy</button><code id="embedCode">&lt;script src="https://id.wearedogs.net/embed.js" data-age="21"&gt;&lt;/script&gt;</code>
-      </div>
-      <div class="params reveal">
-        <code>?age=21</code><code>&amp;redirect=</code><code>&amp;for=</code>
-      </div>
-      <p class="params-note reveal">Prefer a link? Send visitors to id.wearedogs.net with those params. After verifying they return tagged <code>#dogs-verified=21</code>.</p>
+<!-- 4 · nothing stored -->
+<section class="panel p4" id="nothing">
+  <div class="bg drift"><img src="assets/id-void.jpg" alt="Single thin gold line of light across a black void"></div>
+  <div class="scrim"></div>
+  <div class="content">
+    <h2 class="word rv" style="--i:0"><em>Nothing</em><br>to steal.</h2>
+    <p class="line rv" style="--i:1">No database. No breach possible.</p>
+    <p class="line thin rv" style="--i:2">A yes/no flag in your browser is the entire data model. There&rsquo;s nothing on any server to leak.</p>
+  </div>
+  <a class="cue" href="#tag">SCROLL</a>
+</section>
+
+<!-- 5 · embed -->
+<section class="panel p5" id="tag">
+  <div class="bg drift"><img src="assets/id-hero.jpg" alt="Velvet rope barrier in a dark room lit by warm gold light"></div>
+  <div class="scrim"></div>
+  <div class="content">
+    <p class="eyebrow rv" style="--i:0">EMBED</p>
+    <h2 class="word rv" style="--i:1">One tag.<br><em>Done.</em></h2>
+    <p class="line thin rv" style="--i:2">Paste this into any DOGS site. First visit gets the fullscreen gate, then it&rsquo;s remembered per device.</p>
+    <div class="codeblock rv" style="--i:3">
+      <button class="copy" id="copyBtn">Copy</button><code>&lt;script
+  src="https://id.wearedogs.net/embed.js"
+  data-age="21"&gt;&lt;/script&gt;</code>
     </div>
-  </section>
-
-  <section id="faq">
-    <div class="wrap">
-      <p class="kicker reveal">QUESTIONS</p>
-      <h2 class="reveal">Short answers.</h2>
-      <div style="margin-top:28px">
-        <details class="reveal">
-          <summary>What data do you collect? <span class="plus">+</span></summary>
-          <p>None. No birthdays, no names, no accounts, no tracking cookies, no analytics. The gate stores a single yes/no flag in the visitor&rsquo;s own browser.</p>
-        </details>
-        <details class="reveal">
-          <summary>How is my choice remembered? <span class="plus">+</span></summary>
-          <p>On your device only, in localStorage, one key per age threshold. It never leaves your browser and no server ever sees it.</p>
-        </details>
-        <details class="reveal">
-          <summary>What age does it check? <span class="plus">+</span></summary>
-          <p>Whatever the site sets. The default is 21.</p>
-        </details>
-        <details class="reveal">
-          <summary>Where do I go after verifying? <span class="plus">+</span></summary>
-          <p>Wherever the site points you. Link mode appends <code>#dogs-verified=21</code> so the destination knows the check passed.</p>
-        </details>
-        <details class="reveal">
-          <summary>Which browsers work? <span class="plus">+</span></summary>
-          <p>Any modern browser with JavaScript and localStorage enabled.</p>
-        </details>
-      </div>
+    <div class="params rv" style="--i:4">
+      <code>?age=21</code><code>&amp;redirect=</code><code>&amp;for=</code>
     </div>
-  </section>
-</main>
+    <p class="demo-note rv" style="--i:5">Prefer a link? id.wearedogs.net + those params returns you tagged <code style="color:var(--gold)">#dogs-verified=21</code>.</p>
+  </div>
+  <a class="cue" href="#ask">SCROLL</a>
+</section>
 
-<footer>
-  <div class="wrap">
-    <p class="madeby">This product was made by <a href="https://wearedogs.net">DOGS</a></p>
-    <div class="flink">
+<!-- 6 · faq -->
+<section class="panel p6" id="ask">
+  <div class="content">
+    <p class="eyebrow rv" style="--i:0">QUESTIONS</p>
+    <h2 class="word rv" style="--i:1">Short <em>answers.</em></h2>
+    <div class="faq rv" style="--i:2">
+      <details>
+        <summary>What data do you collect? <span class="plus">+</span></summary>
+        <p>None. No birthdays, no names, no accounts, no tracking cookies, no analytics. The gate stores a single yes/no flag in the visitor&rsquo;s own browser.</p>
+      </details>
+      <details>
+        <summary>How is my choice remembered? <span class="plus">+</span></summary>
+        <p>On your device only, in localStorage, one key per age threshold. It never leaves your browser and no server ever sees it.</p>
+      </details>
+      <details>
+        <summary>What age does it check? <span class="plus">+</span></summary>
+        <p>Whatever the site sets. The default is 21.</p>
+      </details>
+      <details>
+        <summary>Which browsers work? <span class="plus">+</span></summary>
+        <p>Any modern browser with JavaScript and localStorage enabled.</p>
+      </details>
+    </div>
+  </div>
+  <a class="cue" href="#first">SCROLL</a>
+</section>
+
+<!-- 7 · final -->
+<section class="panel p7" id="first">
+  <div class="bg drift"><img src="assets/id-door.jpg" alt="Dark corridor with a door ajar spilling golden light"></div>
+  <div class="scrim"></div>
+  <div class="content">
+    <h2 class="word rv" style="--i:0">Put it on<br><em>your site.</em></h2>
+    <div class="btnrow rv" style="--i:1">
+      <a class="btn btn-gold" href="#tag">Get the tag</a>
+      <a class="btn btn-ghost" href="https://id.wearedogs.net">The live gate</a>
+    </div>
+    <a class="badge rv" style="--i:2" href="https://wearedogs.net"><img src="assets/made-by-dogs.png" alt="This product was made by DOGS" width="3584" height="1184"></a>
+    <div class="flink rv" style="--i:3">
       <a href="privacy/">Privacy</a>
       <a href="terms/">Terms</a>
-      <a href="https://id.wearedogs.net">The live gate</a>
     </div>
-    <p class="nocookies">No cookies on this page. We mean it.</p>
+    <p class="nocookies rv" style="--i:4">No cookies on this page. We mean it.</p>
   </div>
-</footer>
+</section>
 
 <a class="sticky-cta" href="#demo">Try the demo</a>
 
@@ -273,8 +311,8 @@ footer a:hover{color:var(--ink)}
   "use strict";
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* entrance reveals */
-  var els = document.querySelectorAll(".reveal");
+  /* staggered clip reveals on panel entry */
+  var els = document.querySelectorAll(".rv");
   if (reduce || !("IntersectionObserver" in window)) {
     els.forEach(function(e){ e.classList.add("in"); });
   } else {
@@ -282,18 +320,8 @@ footer a:hover{color:var(--ink)}
       entries.forEach(function(en){
         if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
       });
-    }, {threshold: 0.12});
+    }, {threshold: 0.15});
     els.forEach(function(e){ io.observe(e); });
-  }
-
-  /* gold rope draw */
-  var rope = document.getElementById("rope");
-  if (reduce || !("IntersectionObserver" in window)) { rope.classList.add("draw"); }
-  else {
-    var rio = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if (e.isIntersecting){ rope.classList.add("draw"); rio.disconnect(); } });
-    });
-    rio.observe(rope);
   }
 
   /* live gate demo */
@@ -337,7 +365,6 @@ footer a:hover{color:var(--ink)}
 {"@type":"Question","name":"What data do you collect?","acceptedAnswer":{"@type":"Answer","text":"None. No birthdays, no names, no accounts, no tracking cookies, no analytics. The gate stores a single yes/no flag in the visitor's own browser."}},
 {"@type":"Question","name":"How is my choice remembered?","acceptedAnswer":{"@type":"Answer","text":"On your device only, in localStorage, one key per age threshold. It never leaves your browser and no server ever sees it."}},
 {"@type":"Question","name":"What age does it check?","acceptedAnswer":{"@type":"Answer","text":"Whatever the site sets. The default is 21."}},
-{"@type":"Question","name":"Where do I go after verifying?","acceptedAnswer":{"@type":"Answer","text":"Wherever the site points you. Link mode appends #dogs-verified=21 so the destination knows the check passed."}},
 {"@type":"Question","name":"Which browsers work?","acceptedAnswer":{"@type":"Answer","text":"Any modern browser with JavaScript and localStorage enabled."}}
 ]}
 </script>
